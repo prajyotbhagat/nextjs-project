@@ -21,6 +21,11 @@ pipeline {
                 sh 'npm run build'
             }
         }
+	stage('Verify Vercel Token') {
+	    steps {
+       		sh 'npx vercel whoami --token="$VERCEL_TOKEN"'
+   		}
+	}
         stage('Deploy') {
             steps {
                 sh 'npx vercel --prod --yes --token="$VERCEL_TOKEN"'
